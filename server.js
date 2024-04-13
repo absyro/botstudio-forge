@@ -160,11 +160,14 @@ app.use((req, res, next) => {
     // Extracting the path from the request.
     const { path } = req;
 
+    // Getting the requested page from the user request.
+    const page = path.split('/')[1];
+
     // If the user is requesting a resource or an invalid page, then do nothing.
-    if (req.path.split('.').length > 1 && !['bot'].includes(path)) return next();
+    if (req.path.split('.').length > 1 || !['bot'].includes(page)) return next();
 
     // Sending the requested page to the user.
-    res.sendFile(path.join(process.cwd(), 'public', path.split('/')[1], 'index.html'));
+    res.sendFile(path.join(process.cwd(), 'public', page, 'index.html'));
 });
 
 // Setting the trust proxy for the local network address. This one is used for express rate limit middleware.
