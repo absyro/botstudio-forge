@@ -38,6 +38,13 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 ${description}
             </p>
             <hr class="border border-secondary border-opacity-25">
+            <div id="conversation"></div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Message..." aria-label="Message">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary border-secondary border-opacity-25 rounded-start-0 rounded-end-1 py-2 text-white" type="button">Send Message</button>
+                </div>
+            </div>
         </div>`;
     }
 });
