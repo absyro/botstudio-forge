@@ -26,5 +26,3 @@ fetch('api/fetch_bots', {
         </div>`
     );
 });
-
-if (window.location.pathname !== '/') window.location = '/';
