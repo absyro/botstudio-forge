@@ -158,13 +158,13 @@ app.use(/\//, (req, res) => {
 // Checking if the user has requested any other pages.
 app.use((req, res, next) => {
     // Extracting the path from the request.
-    const { path } = req;
+    const { path: p } = req;
 
     // Getting the requested page from the user request.
-    const page = path.split('/')[1];
+    const page = p.split('/')[1];
 
     // If the user is requesting a resource or an invalid page, then do nothing.
-    if (req.path.split('.').length > 1 || !['bot'].includes(page)) return next();
+    if (p.split('.').length > 1 || !['bot'].includes(page)) return next();
 
     // Sending the requested page to the user.
     res.sendFile(path.join(process.cwd(), 'public', page, 'index.html'));
