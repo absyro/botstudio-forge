@@ -152,6 +152,15 @@ app.use('/api/set_description', (req, res) => {
     database.save();
 });
 
+// Handling incoming requests to get the bot's update list.
+app.use('/api/get_updates', (req, res) => {
+    // Extracting the bot hash from the request query.
+    const { hash } = req.query;
+
+    // Sending the response to the request with the bot's update list.
+    res.status(200).send(database.data[hash].updates);
+});
+
 // Checking if the user has requested the home page.
 app.use(/\//, (req, res) => {
     // Sending the home page.
@@ -223,6 +232,9 @@ wss.on('connection', (ws) => {
                     body: JSON.stringify(parameters)
                 });
             }
+
+            // Saving the data to the database.
+            database.save();
         } catch {}
     });
 
