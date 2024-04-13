@@ -65,13 +65,13 @@ app.use((req, res, next) => {
 // Handling incoming requests to get the list of all bots.
 app.use('/api/fetch_bots', (req, res) => {
     // Sending a list of all bots in the database file. Some parameters will be removed.
-    res.status(200).send(Object.values(database.data).map(({ webhook, ...bot }) => bot));
+    res.status(200).send(Object.values(database.data).map(({ webhook, updates, ...bot }) => bot));
 });
 
 // Handling incoming requests to get bot information from the database.
 app.use('/api/fetch_bot', (req, res) => {
     // Finding the bot in the database and removing some parameters from it.
-    const { webhook, ...bot } = Object.values(database.data).find(({ id }) => id === req.query.id) || {};
+    const { webhook, updates, ...bot } = Object.values(database.data).find(({ id }) => id === req.query.id) || {};
 
     // Sending the bot's information as the response.
     res.status(Object.keys(bot).length ? 200 : 400).send(bot);
