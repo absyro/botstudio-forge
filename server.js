@@ -1,0 +1,109 @@
+import rateLimit from 'express-rate-limit';
+import responseTime from 'response-time';
+import compression from 'compression';
+import express from 'express';
+import Veloce from 'velocedb';
+import dotenv from 'dotenv';
+import chalk from 'chalk';
+import cors from 'cors';
+import path from 'path';
+
+// Using the 'dotenv' module to load .env files.
+dotenv.config();
+
+// Setting the PORT environment variables to '3090' if it doesn't exist.
+process.env.PORT ||= '3090';
+
+// Setting the NODE_ENV environment variables to 'production' if it doesn't exist.
+process.env.NODE_ENV ||= 'production';
+
+// Creating a new Express app to handle incoming requests to the server.
+const app = express();
+
+// Creating a new database instance using the Velocedb.
+const database = new Veloce('database.json');
+
+// Using the Cors middleware.
+app.use(cors());
+
+// Using the response time middleware to get response times using request headers.
+app.use(responseTime());
+
+// Using express static to render static files from the public directory.
+app.use(express.static('public'));
+
+// Using the compression middleware from Express to optimize the requests.
+app.use(compression());
+
+// Using Express JSON to handle incmoing request bodies with a limitation of 1 MB.
+app.use(express.json({ limit: '1mb' }));
+
+// Using the Express rate limit middleware to limit the requests from a client.
+app.use(
+    // The rate limit module is used here as a middleware.
+    rateLimit({
+        // Setting a limitation for 1 minute here.
+        windowMs: 60000,
+        // Setting a limitation of 100 requests per minute.
+        max: 100,
+        // The handler that will be triggered whenever a limitation exceeds.
+        handler: (req, res) => res.status(429).send('Too many requests!')
+    })
+);
+
+// A custom middleware to make sure all requests contain a body.
+app.use((req, res, next) => {
+    // If a request body doesn't exist, set it to '{}'.
+    req.body ||= {};
+
+    // Continue to the next middleware.
+    next();
+});
+
+// Checking if the user has requested the home page.
+app.use('/', (req, res) => {
+    // Sending the home page from the public/home folder.
+    res.sendFile(path.join(process.cwd(), 'public', 'home', 'index.html'));
+});
+
+// A custom middleware to handle all incoming requests to the API endpoints.
+app.use('/api', (req, res, next) => {
+    // Extracting the hash parameter from the request body.
+    const { hash } = req.body;
+
+    // Check if the provided hash contains exactly 128 characters.
+    if (hash.length !== 128) return res.status(400).send('The hash length must be 128 characters.');
+
+    // If the provided hash doesn't exist in the database, create it.
+    database.data[hash] ||= {};
+
+    // Continue to the next middleware.
+    next();
+});
+
+// Handling incoming requests to the setwebhook endpoint.
+app.use('/api/setwebhook', (req, res) => {
+    // Extracting the webhook and hash parameters from the request body.
+    const { webhook, hash } = req.body;
+
+    // Checking if the provided webhook address is a valid domain.
+    if (!/^(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(webhook)) return res.status(400).send('The webhook address is not a valid URL.');
+
+    // Setting the provided webhook to the hash data.
+    database.data[hash].webhook = webhook;
+
+    // Sending a successful message.
+    res.status(200).send('The webhook address has been set successfully.');
+
+    // Saving the data to the database.
+    database.save();
+});
+
+// Setting the trust proxy for the local network address. This one is used for express rate limit middleware.
+app.set('trust proxy', '127.0.0.1');
+
+// Running the app on the provided port and creating a new log into the console.
+app.listen(process.env.PORT, () => console.log('> Running on:', chalk.cyan('http://localhost:' + process.env.PORT)));
+
+// Creaging a new console log to check the node environment.
+console.log('> Running on', chalk.magenta(process.env.NODE_ENV), 'mode');
