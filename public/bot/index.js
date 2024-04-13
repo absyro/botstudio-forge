@@ -1,4 +1,4 @@
-fetch(window.location.origin + '/api/fetch_bot', {
+fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
