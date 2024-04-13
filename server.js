@@ -212,7 +212,7 @@ wss.on('connection', (ws) => {
             const bot = Object.values(database.data).find((bot) => bot.id === id) || {};
 
             // The parameters of the message are used to handle messages.
-            const parameters = { type, content, client: clientID };
+            const parameters = { type, content, client: clientID, date: new Date() };
 
             // Adding this update to the bot's updates list.
             bot.updates.push(parameters);
