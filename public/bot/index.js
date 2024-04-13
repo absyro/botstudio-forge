@@ -35,7 +35,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 <div class="m-auto" id="notice">Send a message to this robot to start chatting.</div>
             </div>
             <form class="input-group mb-3" id="message-form">
-                <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Message..." aria-label="Message">
+                <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Enter the message content...">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary border-secondary border-opacity-25 rounded-start-0 rounded-end-1 py-2 text-white" type="submit">Send Message</button>
                 </div>
