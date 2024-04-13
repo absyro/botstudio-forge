@@ -39,12 +39,21 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
             </p>
             <hr class="border border-secondary border-opacity-25">
             <div id="conversation"></div>
-            <div class="input-group mb-3">
+            <form class="input-group mb-3" id="message-form">
                 <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Message..." aria-label="Message">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary border-secondary border-opacity-25 rounded-start-0 rounded-end-1 py-2 text-white" type="button">Send Message</button>
+                    <button class="btn btn-outline-secondary border-secondary border-opacity-25 rounded-start-0 rounded-end-1 py-2 text-white" type="submit">Send Message</button>
                 </div>
-            </div>
+            </form>
         </div>`;
+
+        // Getting the message form element.
+        const messageForm = document.getElementById('message-form');
+
+        // Setting a new submit action for the message form.
+        messageForm.onsubmit = (event) => {
+            // Preventing the default event handler for forms.
+            event.preventDefault();
+        };
     }
 });
