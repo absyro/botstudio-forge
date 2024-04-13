@@ -206,6 +206,12 @@ app.listen(process.env.PORT, () => console.log('> Running on:', chalk.cyan('http
 // Creaging a new console log to check the node environment.
 console.log('> Running on', chalk.magenta(process.env.NODE_ENV), 'mode');
 
+// After each server starts, remove the list of updates for the bot.
+Object.keys(database.data).forEach((key) => (database.data[key].updates = []));
+
+// Save the new data to the database.
+database.save();
+
 // Creating a new websocket server on port 5030.
 const wss = new WebSocketServer({ port: 5030 });
 
