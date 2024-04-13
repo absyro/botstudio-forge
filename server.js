@@ -94,7 +94,9 @@ app.use('/api', (req, res, next) => {
             // Setting a custom name for the bot.
             name: 'The bot',
             // Setting a custom description for the bot.
-            description: 'The description'
+            description: 'The description',
+            // Creating the bot's update list. It will be an empty array of objects.
+            updates: []
         };
     }
 
