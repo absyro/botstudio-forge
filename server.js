@@ -61,10 +61,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Checking if the user has requested the home page.
-app.use('/', (req, res) => {
-    // Sending the home page from the public/home folder.
-    res.sendFile(path.join(process.cwd(), 'public', 'home', 'index.html'));
+// Handling incoming requests to get the list of all bots.
+app.use('/api/fetchbots', (req, res) => {
+    // Sending a list of all bots in the database file.
+    res.status(200).send(Object.values(database.data));
 });
 
 // A custom middleware to handle all incoming requests to the API endpoints.
@@ -104,6 +104,12 @@ app.use('/api/setwebhook', (req, res) => {
 
     // Saving the data to the database.
     database.save();
+});
+
+// Checking if the user has requested the home page.
+app.use('/', (req, res) => {
+    // Sending the home page from the public/home folder.
+    res.sendFile(path.join(process.cwd(), 'public', 'home', 'index.html'));
 });
 
 // Setting the trust proxy for the local network address. This one is used for express rate limit middleware.

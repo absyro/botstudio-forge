@@ -1,3 +1,3 @@
 {
-  "recommendations": ["eamodio.gitlens", "esbenp.prettier-vscode", "yzhang.markdown-all-in-one", "PKief.material-icon-theme", "zh9528.file-size", "redhat.vscode-yaml", "jock.svg", "ms-vscode.vscode-typescript-next", "Postman.postman-for-vscode", "pranaygp.vscode-css-peek", "Codium.codium", "donjayamanne.githistory"]
+  "recommendations": ["eamodio.gitlens", "esbenp.prettier-vscode", "yzhang.markdown-all-in-one", "PKief.material-icon-theme", "zh9528.file-size", "redhat.vscode-yaml", "jock.svg", "ms-vscode.vscode-typescript-next", "Postman.postman-for-vscode", "pranaygp.vscode-css-peek", "Codium.codium", "donjayamanne.githistory", "Tobermory.es6-string-html"]
 }
