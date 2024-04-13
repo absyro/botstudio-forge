@@ -197,13 +197,19 @@ wss.on('connection', (ws) => {
             // Extracting the parameters from the received message.
             const { type, content, id } = JSON.parse(message.toString());
 
-            // Finding the bot in the database and selecting the webhook from it.
-            const { webhook } = Object.values(database.data).find((bot) => bot.id === id) || {};
+            // Finding the bot in the database.
+            const bot = Object.values(database.data).find((bot) => bot.id === id) || {};
+
+            // The parameters of the message are used to handle messages.
+            const parameters = { type, content, client: clientID };
+
+            // Adding this update to the bot's updates list.
+            bot.updates.push(parameters);
 
             // Check if the webhook address exists for this bot.
-            if (webhook) {
+            if (bot.webhook) {
                 // Sending a POST request to the bot webhook.
-                fetch(webhook, {
+                fetch(bot.webhook, {
                     // Sending the request using the POST method.
                     method: 'POST',
                     // Setting the headers of the request.
@@ -212,7 +218,7 @@ wss.on('connection', (ws) => {
                         'Content-Type': 'application/json'
                     },
                     // Stringyfing and sending the body of the request.
-                    body: JSON.stringify({ type, content, client: clientID })
+                    body: JSON.stringify(parameters)
                 });
             }
         } catch {}
