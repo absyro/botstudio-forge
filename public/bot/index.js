@@ -15,7 +15,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
         document.body.innerHTML = /* html */ `
         <div class="container mt-5">
             <div class="d-inline-block mb-5">
-                <a href="/" class="btn btn-dark border border-secondary border-opacity-25 d-flex align-items-center gap-2">
+                <a href="/" class="btn btn-dark border border-secondary border-opacity-25 d-flex align-items-center gap-2 rounded-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
                     </svg>
@@ -31,7 +31,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 ${description}
             </p>
             <hr class="border border-secondary border-opacity-25">
-            <div id="conversation"></div>
+            <div class="py-4" id="conversation"></div>
             <form class="input-group mb-3" id="message-form">
                 <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Message..." aria-label="Message">
                 <div class="input-group-append">
@@ -49,9 +49,16 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
         // Getting the message form element.
         const messageForm = document.getElementById('message-form');
 
+        // The element of conversation is used to store the conversation data.
+        const conversation = document.getElementById('conversation');
+
         // Listening to all incoming messages from the websocket client.
         socket.addEventListener('message', ({ data }) => {
-            console.log(data);
+            // Extracting the data parameters.
+            const { type, content } = data;
+
+            // Check if the data type is text, then add the message for the user.
+            if (type === 'text') conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-danger border-opacity-50 rounded-1">${content}</div>`;
         });
 
         // Setting a new submit action for the message form.
