@@ -1,4 +1,4 @@
-fetch('api/fetchbots', {
+fetch('api/fetch_bots', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'

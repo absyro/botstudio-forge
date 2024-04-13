@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 });
 
 // Handling incoming requests to get the list of all bots.
-app.use('/api/fetchbots', (req, res) => {
+app.use('/api/fetch_bots', (req, res) => {
     // Sending a list of all bots in the database file.
     res.status(200).send(Object.values(database.data));
 });
@@ -88,8 +88,8 @@ app.use('/api', (req, res, next) => {
     next();
 });
 
-// Handling incoming requests to the setwebhook endpoint.
-app.use('/api/setwebhook', (req, res) => {
+// Handling incoming requests to the set_webhook endpoint.
+app.use('/api/set_webhook', (req, res) => {
     // Extracting the webhook and hash parameters from the request body.
     const { webhook, hash } = req.body;
 
@@ -101,6 +101,36 @@ app.use('/api/setwebhook', (req, res) => {
 
     // Sending a successful message.
     res.status(200).send('The webhook address has been set successfully.');
+
+    // Saving the data to the database.
+    database.save();
+});
+
+// Handling incoming requests to the set_title endpoint.
+app.use('/api/set_title', (req, res) => {
+    // Extracting the title and hash parameters from the request body.
+    const { title, hash } = req.body;
+
+    // Setting the provided title to the hash data.
+    database.data[hash].title = title;
+
+    // Sending a successful message.
+    res.status(200).send('The new title has been set successfully.');
+
+    // Saving the data to the database.
+    database.save();
+});
+
+// Handling incoming requests to the set_description endpoint.
+app.use('/api/set_description', (req, res) => {
+    // Extracting the description and hash parameters from the request body.
+    const { description, hash } = req.body;
+
+    // Setting the provided description to the hash data.
+    database.data[hash].description = description;
+
+    // Sending a successful message.
+    res.status(200).send('The new description has been set successfully.');
 
     // Saving the data to the database.
     database.save();
