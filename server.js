@@ -13,8 +13,8 @@ import cors from 'cors';
 // Using the 'dotenv' module to load .env files.
 dotenv.config();
 
-// Setting the PORT environment variables to '3090' if it doesn't exist.
-process.env.PORT ||= '3090';
+// Setting the PORT environment variables to '5000' if it doesn't exist.
+process.env.PORT ||= '5000';
 
 // Setting the NODE_ENV environment variables to 'production' if it doesn't exist.
 process.env.NODE_ENV ||= 'production';
@@ -180,8 +180,8 @@ app.listen(process.env.PORT, () => console.log('> Running on:', chalk.cyan('http
 // Creaging a new console log to check the node environment.
 console.log('> Running on', chalk.magenta(process.env.NODE_ENV), 'mode');
 
-// Creating a new websocket server on port 4020.
-const wss = new WebSocketServer({ port: 4020 });
+// Creating a new websocket server on port 5030.
+const wss = new WebSocketServer({ port: 5030 });
 
 // Creating a new array of all websocket clients connected.
 const wsc = {};

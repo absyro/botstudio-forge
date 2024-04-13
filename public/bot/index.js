@@ -40,8 +40,8 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
             </form>
         </div>`;
 
-        // Connecting to the websocket server on port 4020.
-        const socket = new WebSocket('ws://localhost:4020');
+        // Connecting to the websocket server on port 5030.
+        const socket = new WebSocket('ws://localhost:5030');
 
         // Handling websocket server disconnection events. If the websocket server was disconnected, reload this page.
         socket.addEventListener('close', () => window.location.reload());
