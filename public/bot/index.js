@@ -1,20 +1,5 @@
 import '../javascript/main.js';
 
-// Checking if the session exists in the browser's session storage.
-if (!window.sessionStorage.getItem('session')) {
-    // Creating a buffer of unit 8 arrays with 32 characters.
-    const buffer = new Uint8Array(32);
-
-    // Getting a random value from the buffer using crypto.
-    window.crypto.getRandomValues(buffer);
-
-    // Creating a hash array as the session.
-    const hashArray = Array.from(buffer).map((byte) => byte.toString(16).padStart(2, '0'));
-
-    // Setting the browser's session storage's session.
-    window.sessionStorage.setItem('session', hashArray.join(''));
-}
-
 // Sending a request to fetch the information of the requested robot on the page.
 fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
     // Using the GET method to send the request.
@@ -55,13 +40,41 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
             </form>
         </div>`;
 
+        // Connecting to the websocket server on port 4020.
+        const socket = new WebSocket('ws://localhost:4020');
+
+        // Handling websocket server disconnection events. If the websocket server was disconnected, reload this page.
+        socket.addEventListener('close', () => window.location.reload());
+
         // Getting the message form element.
         const messageForm = document.getElementById('message-form');
+
+        // Listening to all incoming messages from the websocket client.
+        socket.addEventListener('message', ({ data }) => {
+            console.log(data);
+        });
 
         // Setting a new submit action for the message form.
         messageForm.onsubmit = (event) => {
             // Preventing the default event handler for forms.
             event.preventDefault();
+
+            // Getting the text input in the form.
+            const input = messageForm.querySelector('input');
+
+            // Sending a request to the websocket server.
+            socket.send(
+                // Stringify the JSON content of the request.
+                JSON.stringify({
+                    // Sending the request as text content.
+                    type: 'text',
+                    // Sending the content of the message.
+                    content: input.value
+                })
+            );
+
+            // Resetting the input value.
+            input.value = null;
         };
     }
 });

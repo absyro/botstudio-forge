@@ -1,6 +1,7 @@
 import rateLimit from 'express-rate-limit';
 import responseTime from 'response-time';
 import compression from 'compression';
+import { WebSocketServer } from 'ws';
 import crypto from 'node:crypto';
 import express from 'express';
 import Veloce from 'velocedb';
@@ -178,3 +179,25 @@ app.listen(process.env.PORT, () => console.log('> Running on:', chalk.cyan('http
 
 // Creaging a new console log to check the node environment.
 console.log('> Running on', chalk.magenta(process.env.NODE_ENV), 'mode');
+
+// Creating a new websocket server on port 4020.
+const wss = new WebSocketServer({ port: 4020 });
+
+// Creating a new array of all websocket clients connected.
+const wsc = {};
+
+// Listening for incoming connections.
+wss.on('connection', (ws) => {
+    // Creating a unique ID for the connected client.
+    const id = crypto.randomBytes(32).toString('hex');
+
+    // Listening for all incoming messages from the client.
+    ws.on('message', (message) => {
+        try {
+            console.log('received:', JSON.parse(message.toString()));
+        } catch {}
+    });
+
+    // Listening for a close event to remove the client from the client list when a client has been disconnected.
+    ws.on('close', () => delete wsc[id]);
+});
