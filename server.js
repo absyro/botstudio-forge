@@ -9,6 +9,7 @@ import path from 'node:path';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import cors from 'cors';
+import xss from 'xss';
 
 // Using the 'dotenv' module to load .env files.
 dotenv.config();
@@ -56,10 +57,16 @@ app.use(
     })
 );
 
-// A custom middleware to make sure all requests contain a body.
+// A custom middleware to make sure all requests contain a body, making the requests secure.
 app.use((req, res, next) => {
     // If a request body doesn't exist, set it to '{}'.
     req.body ||= {};
+
+    // Iterate through the request's body, query parameters, and parameters.
+    ['body', 'query', 'params'].forEach((param) => {
+        // Sanitize the string values using the xss package.
+        if (req[param]) for (const key in req[param]) if (typeof req[param][key] === 'string') req[param][key] = xss(req[param][key]);
+    });
 
     // Continue to the next middleware.
     next();
