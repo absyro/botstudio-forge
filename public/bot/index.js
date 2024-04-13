@@ -31,7 +31,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 ${description}
             </p>
             <hr class="border border-secondary border-opacity-25">
-            <div class="py-4" id="conversation"></div>
+            <div class="py-4 d-flex align-items-center flex-column gap-2" id="conversation"></div>
             <form class="input-group mb-3" id="message-form">
                 <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Message..." aria-label="Message">
                 <div class="input-group-append">
@@ -81,6 +81,9 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                     id
                 })
             );
+
+            // Add the message to the conversation element.
+            conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-info border-opacity-50 rounded-1 ms-auto">${input.value}</div>`;
 
             // Resetting the input value.
             input.value = null;
