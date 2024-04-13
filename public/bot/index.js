@@ -31,7 +31,9 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 ${description}
             </p>
             <hr class="border border-secondary border-opacity-25 mb-0">
-            <div class="my-4 p-1 border border-secondary border-opacity-25 rounded-1 d-flex align-items-center flex-column gap-2 overflow-auto" id="conversation"></div>
+            <div class="my-4 p-1 border border-secondary border-opacity-25 rounded-1 d-flex align-items-center flex-column gap-2 overflow-auto" id="conversation">
+                <div class="m-auto" id="notice">Send a message to this robot to start chatting.</div>
+            </div>
             <form class="input-group mb-3" id="message-form">
                 <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Message..." aria-label="Message">
                 <div class="input-group-append">
@@ -77,6 +79,9 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 // Set a timeout of 2 seconds. After the timeout ends, remove the highlight of the input. Also, return and do not continue the process.
                 return setTimeout(() => (input.style.background = ''), 2000);
             }
+
+            // If the notice exists, remove it.
+            conversation.querySelector('#notice')?.remove();
 
             // Sending a request to the websocket server.
             socket.send(
