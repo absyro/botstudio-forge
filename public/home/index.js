@@ -9,8 +9,8 @@ fetch(window.location.origin + '/api/fetch_bots', {
     // Extracting the JSON data that contains a list of all bots.
     const json = await res.json();
 
-    // Setting the html content of the bots list to show bots.
-    document.getElementById('list').innerHTML = json.map(
+    // Creating the HTML content to be included in the home page.
+    const content = json.map(
         ({ id, name, description }) => /* html */ `
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card rounded-1">
@@ -29,4 +29,7 @@ fetch(window.location.origin + '/api/fetch_bots', {
             </div>
         </div>`
     );
+
+    // Setting the HTML content of the bots list to show bots.
+    document.getElementById('list').innerHTML = content.join('');
 });
