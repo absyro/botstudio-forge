@@ -146,7 +146,7 @@ app.use('/', (req, res) => {
     const p = req.path.split('/')[1];
 
     // Getting the requested page from the request path.
-    const page = ['bot'].includes(p) ? p : 'home'
+    const page = ['bot'].includes(p) ? p : 'home';
 
     // Sending the requested page to the user.
     res.sendFile(path.join(process.cwd(), 'public', page, 'index.html'));
