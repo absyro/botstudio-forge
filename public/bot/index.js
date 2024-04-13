@@ -70,7 +70,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
             const input = messageForm.querySelector('input');
 
             // If there were no texts in the input, highlight the input field.
-            if (!input.length) {
+            if (!input.value.length) {
                 // Change the input's background color.
                 input.style.background = 'rgba(220, 20, 60, 0.125)';
 
