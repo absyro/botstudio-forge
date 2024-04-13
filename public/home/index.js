@@ -7,11 +7,11 @@ fetch(window.location.origin + '/api/fetch_bots', {
     const json = await res.json();
 
     document.getElementById('list').innerHTML = json.map(
-        ({ id, title, description }) => /* html */ `
+        ({ id, name, description }) => /* html */ `
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card rounded-1">
                 <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
+                    <h5 class="card-title">${name}</h5>
                     <p class="card-text">${description}</p>
                 </div>
                 <div class="card-footer">

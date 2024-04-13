@@ -4,5 +4,10 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
         'Content-Type': 'application/json'
     }
 }).then(async (res) => {
-    const { id, title, description } = await res.json();
+    if (res.status === 200) {
+        const { id, name, description } = await res.json();
+
+        document.body.innerHTML = /* html */ `
+        <h1 class=""></h1>`;
+    }
 });

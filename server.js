@@ -90,8 +90,8 @@ app.use('/api', (req, res, next) => {
         database.data[hash] = {
             // Creating a unique ID for the hash in the database.
             id: crypto.randomBytes(64).toString('hex'),
-            // Setting a custom title for the bot.
-            title: 'The bot',
+            // Setting a custom name for the bot.
+            name: 'The bot',
             // Setting a custom description for the bot.
             description: 'The description'
         };
@@ -119,16 +119,16 @@ app.use('/api/set_webhook', (req, res) => {
     database.save();
 });
 
-// Handling incoming requests to the set_title endpoint.
-app.use('/api/set_title', (req, res) => {
-    // Extracting the title and hash parameters from the request body.
-    const { title, hash } = req.body;
+// Handling incoming requests to the set_name endpoint.
+app.use('/api/set_name', (req, res) => {
+    // Extracting the name and hash parameters from the request body.
+    const { name, hash } = req.body;
 
-    // Setting the provided title to the hash data.
-    database.data[hash].title = title;
+    // Setting the provided name to the hash data.
+    database.data[hash].name = name;
 
     // Sending a successful message.
-    res.status(200).send('The new title has been set successfully.');
+    res.status(200).send('The new name has been set successfully.');
 
     // Saving the data to the database.
     database.save();
