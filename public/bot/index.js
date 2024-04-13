@@ -13,7 +13,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
 
         // Setting the document's inner HTML based on the received parameters.
         document.body.innerHTML = /* html */ `
-        <div class="container p-5">
+        <div class="container mt-5">
             <div class="d-inline-block mb-5">
                 <a href="/" class="btn btn-dark border border-secondary border-opacity-25 d-flex align-items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
