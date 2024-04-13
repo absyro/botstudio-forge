@@ -8,6 +8,9 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
         const { id, name, description } = await res.json();
 
         document.body.innerHTML = /* html */ `
-        <h1 class=""></h1>`;
+        <div class="container">
+            <h1>${name}</h1>
+            <p>${description}</p>
+        </div>`;
     }
 });
