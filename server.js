@@ -263,6 +263,9 @@ wss.on('connection', (ws) => {
         } catch {}
     });
 
+    // Saving this client to the websocket client list.
+    wsc[clientID] = ws;
+
     // Listening for a close event to remove the client from the client list when a client has been disconnected.
     ws.on('close', () => delete wsc[clientID]);
 });
