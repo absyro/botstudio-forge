@@ -74,7 +74,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
             // If there were no texts in the input, highlight the input field.
             if (!input.value.length) {
                 // Change the input's background color.
-                input.style.background = 'rgba(220, 20, 60, 0.125)';
+                input.style.background = 'rgba(0, 0, 0, 0.125)';
 
                 // Set a timeout of 2 seconds. After the timeout ends, remove the highlight of the input. Also, return and do not continue the process.
                 return setTimeout(() => (input.style.background = ''), 2000);
