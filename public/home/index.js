@@ -1,11 +1,13 @@
+// Sending a GET request to fetch all bots from the server.
 fetch(window.location.origin + '/api/fetch_bots', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
+    // Using the GET method to send the request.
+    method: 'GET'
+    // Fetching the received response from the sent request.
 }).then(async (res) => {
+    // Extracting the JSON data that contains a list of all bots.
     const json = await res.json();
 
+    // Setting the html content of the bots list to show bots.
     document.getElementById('list').innerHTML = json.map(
         ({ id, name, description }) => /* html */ `
         <div class="col-lg-4 col-md-6 mb-4">
