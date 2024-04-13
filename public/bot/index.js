@@ -30,8 +30,8 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 </svg>
                 ${description}
             </p>
-            <hr class="border border-secondary border-opacity-25">
-            <div class="py-4 d-flex align-items-center flex-column gap-2" id="conversation"></div>
+            <hr class="border border-secondary border-opacity-25 mb-0">
+            <div class="my-4 d-flex align-items-center flex-column gap-2 overflow-auto" id="conversation"></div>
             <form class="input-group mb-3" id="message-form">
                 <input type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Message..." aria-label="Message">
                 <div class="input-group-append">
