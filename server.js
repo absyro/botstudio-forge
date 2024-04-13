@@ -140,10 +140,16 @@ app.use('/api/set_description', (req, res) => {
     database.save();
 });
 
-// Checking if the user has requested the home page.
+// Checking if the user has requested a page.
 app.use('/', (req, res) => {
-    // Sending the home page from the public/home folder.
-    res.sendFile(path.join(process.cwd(), 'public', 'home', 'index.html'));
+    // Getting the requested page path.
+    const p = req.path.split('/')[1];
+
+    // Getting the requested page from the request path.
+    const page = ['bot'].includes(p) ? p : 'home'
+
+    // Sending the requested page to the user.
+    res.sendFile(path.join(process.cwd(), 'public', page, 'index.html'));
 });
 
 // Setting the trust proxy for the local network address. This one is used for express rate limit middleware.
