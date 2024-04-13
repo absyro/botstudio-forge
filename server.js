@@ -189,15 +189,35 @@ const wsc = {};
 // Listening for incoming connections.
 wss.on('connection', (ws) => {
     // Creating a unique ID for the connected client.
-    const id = crypto.randomBytes(32).toString('hex');
+    const clientID = crypto.randomBytes(32).toString('hex');
 
     // Listening for all incoming messages from the client.
     ws.on('message', (message) => {
         try {
-            console.log('received:', JSON.parse(message.toString()));
+            // Extracting the parameters from the received message.
+            const { type, content, id } = JSON.parse(message.toString());
+
+            // Finding the bot in the database and selecting the webhook from it.
+            const { webhook } = Object.values(database.data).find((bot) => bot.id === id) || {};
+
+            // Check if the webhook address exists for this bot.
+            if (webhook) {
+                // Sending a POST request to the bot webhook.
+                fetch(webhook, {
+                    // Sending the request using the POST method.
+                    method: 'POST',
+                    // Setting the headers of the request.
+                    headers: {
+                        // Setting the request's content type to application/json.
+                        'Content-Type': 'application/json'
+                    },
+                    // Stringyfing and sending the body of the request.
+                    body: JSON.stringify({ type, content, client: clientID })
+                });
+            }
         } catch {}
     });
 
     // Listening for a close event to remove the client from the client list when a client has been disconnected.
-    ws.on('close', () => delete wsc[id]);
+    ws.on('close', () => delete wsc[clientID]);
 });

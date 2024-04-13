@@ -69,7 +69,9 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                     // Sending the request as text content.
                     type: 'text',
                     // Sending the content of the message.
-                    content: input.value
+                    content: input.value,
+                    // Sending the ID of the current bot.
+                    id
                 })
             );
 
