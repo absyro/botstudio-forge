@@ -1,3 +1,5 @@
+import '../javascript/main.js';
+
 // Sending a GET request to fetch all bots from the server.
 fetch(window.location.origin + '/api/fetch_bots', {
     // Using the GET method to send the request.

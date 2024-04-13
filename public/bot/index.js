@@ -1,3 +1,5 @@
+import '../javascript/main.js';
+
 // Checking if the session exists in the browser's session storage.
 if (!window.sessionStorage.getItem('session')) {
     // Creating a buffer of unit 8 arrays with 32 characters.
@@ -26,7 +28,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
 
         // Setting the document's inner HTML based on the received parameters.
         document.body.innerHTML = /* html */ `
-        <div class="container">
+        <div class="container p-5">
             <h1>${name}</h1>
             <p>${description}</p>
         </div>`;
