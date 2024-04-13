@@ -73,7 +73,7 @@ app.use('/api/fetch_bot', (req, res) => {
     const { id } = req.query;
 
     // Sending the bot's information as the response.
-    res.status(200).send(database.data.find((bot) => bot.id === id));
+    res.status(200).send(Object.values(database.data).find((bot) => bot.id === id) || {});
 });
 
 // A custom middleware to handle all incoming requests to the API endpoints.
