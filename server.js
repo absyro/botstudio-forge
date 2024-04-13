@@ -25,6 +25,9 @@ const app = express();
 // Creating a new database instance using the Velocedb.
 const database = new Veloce('database.json');
 
+// Creating a new array of all websocket clients connected.
+const wsc = {};
+
 // Using the Cors middleware.
 app.use(cors());
 
@@ -193,9 +196,6 @@ console.log('> Running on', chalk.magenta(process.env.NODE_ENV), 'mode');
 
 // Creating a new websocket server on port 5030.
 const wss = new WebSocketServer({ port: 5030 });
-
-// Creating a new array of all websocket clients connected.
-const wsc = {};
 
 // Listening for incoming connections.
 wss.on('connection', (ws) => {
