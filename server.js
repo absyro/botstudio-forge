@@ -149,8 +149,11 @@ app.use('/api/set_description', (req, res) => {
     database.save();
 });
 
-// Checking if the user has requested a page.
-app.use('/', (req, res) => {
+// Checking if the user has requested a page or resource.
+app.use('/', (req, res, next) => {
+    // Checking if the user has requested a resource. If so, then skip.
+    if (req.path.split('.').length > 1) return next();
+
     // Getting the requested page path.
     const p = req.path.split('/')[1];
 
