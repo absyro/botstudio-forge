@@ -69,6 +69,15 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
             // Getting the text input in the form.
             const input = messageForm.querySelector('input');
 
+            // If there were no texts in the input, highlight the input field.
+            if (!input.length) {
+                // Change the input's background color.
+                input.style.background = 'rgba(220, 20, 60, 0.125)';
+
+                // Set a timeout of 2 seconds. After the timeout ends, remove the highlight of the input. Also, return and do not continue the process.
+                return setTimeout(() => (input.style.background = ''), 2000);
+            }
+
             // Sending a request to the websocket server.
             socket.send(
                 // Stringify the JSON content of the request.
