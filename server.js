@@ -181,6 +181,9 @@ app.use('/api/send_message', (req, res) => {
 
     // Send the message to the client.
     wsc[client].send(JSON.stringify({ type: 'text', content }));
+
+    // Sending a message indicating a successful process.
+    res.status(200).send('The message was delivered successfully.');
 });
 
 // Checking if the user has requested the home page.
