@@ -63,17 +63,8 @@ app.use((req, res, next) => {
 
 // Handling incoming requests to get the list of all bots.
 app.use('/api/fetch_bots', (req, res) => {
-    // Creating an object of bots with some parameters removed.
-    const bots = Object.values(database.data).map((bot) => {
-        // Extracting the bot from the database and removing some parameters from it.
-        const { webhook, ...b } = bot;
-
-        // Returning the bot with the removed parameters.
-        return b;
-    });
-
-    // Sending a list of all bots in the database file.
-    res.status(200).send(bots);
+    // Sending a list of all bots in the database file. Some parameters will be removed.
+    res.status(200).send(Object.values(database.data).map(({ webhook, ...bot }) => bot));
 });
 
 // Handling incoming requests to get bot information from the database.
