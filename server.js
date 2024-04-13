@@ -174,13 +174,13 @@ app.use('/api/get_updates', (req, res) => {
 // Handling incoming requests to send a message to a client.
 app.use('/api/send_message', (req, res) => {
     // Extracting the parameters from the request body.
-    const { client, type, content } = req.body;
+    const { client, content } = req.body;
 
     // If the client doesn't exist, then return a status code of 400.
     if (!wsc.hasOwnProperty(client)) return res.status(400).send('The requested client is invalid.');
 
     // Send the message to the client.
-    wsc[client].send(JSON.stringify({ type, content }));
+    wsc[client].send(JSON.stringify({ type: 'text', content }));
 });
 
 // Checking if the user has requested the home page.
