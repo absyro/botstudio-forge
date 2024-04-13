@@ -31,7 +31,7 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
                 ${description}
             </p>
             <hr class="border border-secondary border-opacity-25 mb-0">
-            <div class="my-4 p-1 border border-secondary border-opacity-25 rounded-1 d-flex align-items-center flex-column gap-2 overflow-auto" id="conversation">
+            <div class="my-4 p-2 border border-secondary border-opacity-25 rounded-1 d-flex align-items-center flex-column gap-2 overflow-auto" id="conversation">
                 <div class="m-auto" id="notice">Send a message to this robot to start chatting.</div>
             </div>
             <form class="input-group mb-3" id="message-form">
@@ -57,10 +57,10 @@ fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
         // Listening to all incoming messages from the websocket client.
         socket.addEventListener('message', ({ data }) => {
             // Extracting the data parameters.
-            const { type, content } = data;
+            const { type, content } = JSON.parse(data);
 
             // Check if the data type is text, then add the message for the user.
-            if (type === 'text') conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-danger border-opacity-50 rounded-1">${content}</div>`;
+            if (type === 'text') conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-danger border-opacity-50 rounded-1 me-auto">${content}</div>`;
         });
 
         // Setting a new submit action for the message form.
