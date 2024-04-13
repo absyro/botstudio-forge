@@ -1,12 +1,13 @@
 import rateLimit from 'express-rate-limit';
 import responseTime from 'response-time';
 import compression from 'compression';
+import crypto from 'node:crypto';
 import express from 'express';
 import Veloce from 'velocedb';
+import path from 'node:path';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import cors from 'cors';
-import path from 'path';
 
 // Using the 'dotenv' module to load .env files.
 dotenv.config();
@@ -75,7 +76,13 @@ app.use('/api', (req, res, next) => {
     if (hash.length !== 128) return res.status(400).send('The hash length must be 128 characters.');
 
     // If the provided hash doesn't exist in the database, create it.
-    database.data[hash] ||= {};
+    if (!database.data.hasOwnProperty(hash)) {
+        // Creating the hash in the database.
+        database.data[hash] = {
+            // Creating a unique ID for the hash in the database.
+            id: crypto.randomBytes(64).toString('hex')
+        };
+    }
 
     // Continue to the next middleware.
     next();
