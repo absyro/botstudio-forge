@@ -149,19 +149,22 @@ app.use('/api/set_description', (req, res) => {
     database.save();
 });
 
-// Checking if the user has requested a page or resource.
-app.use('/', (req, res, next) => {
-    // Checking if the user has requested a resource. If so, then skip.
-    if (req.path.split('.').length > 1) return next();
+// Checking if the user has requested the home page.
+app.use(/\//, (req, res) => {
+    // Sending the home page.
+    res.sendFile(path.join(process.cwd(), 'public', 'home', 'index.html'));
+});
 
-    // Getting the requested page path.
-    const p = req.path.split('/')[1];
+// Checking if the user has requested any other pages.
+app.use((req, res, next) => {
+    // Extracting the path from the request.
+    const { path } = req;
 
-    // Getting the requested page from the request path.
-    const page = ['bot'].includes(p) ? p : 'home';
+    // If the user is requesting a resource or an invalid page, then do nothing.
+    if (req.path.split('.').length > 1 && !['bot'].includes(path)) return next();
 
     // Sending the requested page to the user.
-    res.sendFile(path.join(process.cwd(), 'public', page, 'index.html'));
+    res.sendFile(path.join(process.cwd(), 'public', path.split('/')[1], 'index.html'));
 });
 
 // Setting the trust proxy for the local network address. This one is used for express rate limit middleware.
