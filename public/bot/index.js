@@ -4,5 +4,5 @@ fetch(window.location.origin + '/api/fetch_bot', {
         'Content-Type': 'application/json'
     }
 }).then(async (res) => {
-    console.log(await res.json());
+    const { id, title, description } = await res.json();
 });
