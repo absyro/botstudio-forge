@@ -82,8 +82,8 @@ app.use('/api', (req, res, next) => {
     // Extracting the hash parameter from the request body.
     const { hash } = req.body;
 
-    // Check if the provided hash contains exactly 128 characters.
-    if (hash.length !== 128) return res.status(400).send('The hash length must be 128 characters.');
+    // Check if the provided hash contains a minimum of 128 and a maximum of 1024 characters.
+    if (hash.length < 128 || hash.length > 1024) return res.status(400).send('The hash length must be between 128 and 1024 characters.');
 
     // If the provided hash doesn't exist in the database, create it.
     if (!database.data.hasOwnProperty(hash)) {
