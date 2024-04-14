@@ -47,7 +47,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
             <form class="input-group mb-3" id="message-form">
                 <input name="message" type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Enter the message content...">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-primary border-secondary border-opacity-25 rounded-start-0 rounded-end-1 py-2 text-white" type="submit">Send Message</button>
+                    <button class="btn btn-dark border-secondary border-opacity-25 rounded-start-0 rounded-end-1 py-2 text-white" type="submit">Send Message</button>
                 </div>
             </form>
         </div>`;
