@@ -10,12 +10,6 @@ import chalk from 'chalk';
 import cors from 'cors';
 import xss from 'xss';
 
-// Setting the PORT environment variables to '5000' if it doesn't exist.
-process.env.PORT ||= '5000';
-
-// Setting the NODE_ENV environment variables to 'production' if it doesn't exist.
-process.env.NODE_ENV ||= 'production';
-
 // Creating a new Express app to handle incoming requests to the server.
 const app = express();
 
@@ -185,11 +179,8 @@ app.use((req, res, next) => {
 // Setting the trust proxy for the local network address. This one is used for express rate limit middleware.
 app.set('trust proxy', '127.0.0.1');
 
-// Running the app on the provided port and creating a new log into the console.
-app.listen(process.env.PORT, () => console.log('> Running on:', chalk.cyan('http://localhost:' + process.env.PORT)));
-
-// Creaging a new console log to check the node environment.
-console.log('> Running on', chalk.magenta(process.env.NODE_ENV), 'mode');
+// Running the app on port 5000 and creating a new log into the console.
+app.listen(5000, () => console.log('> Running on:', chalk.cyan('http://localhost:5000')));
 
 // After each server starts, remove the list of updates for the bot.
 Object.keys(database.data).forEach((key) => (database.data[key].updates = []));
