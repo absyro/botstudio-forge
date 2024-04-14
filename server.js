@@ -6,13 +6,9 @@ import crypto from 'node:crypto';
 import express from 'express';
 import Veloce from 'velocedb';
 import path from 'node:path';
-import dotenv from 'dotenv';
 import chalk from 'chalk';
 import cors from 'cors';
 import xss from 'xss';
-
-// Using the 'dotenv' module to load .env files.
-dotenv.config();
 
 // Setting the PORT environment variables to '5000' if it doesn't exist.
 process.env.PORT ||= '5000';
