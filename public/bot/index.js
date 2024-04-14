@@ -1,5 +1,11 @@
 import '../javascript/main.js';
 
+// This function is used to format all links inside the string.
+const formatStringLinks = (string) => string.replace(/\b(?:[a-zA-Z-]+\.)+[a-zA-Z]{2,}\b/g, '<a href="$&" target="_blank" rel="nofollow">$&</a>');
+
+// This function is used to format the given string.
+const formatString = (string) => formatStringLinks(string);
+
 // Sending a request to fetch the information of the requested robot on the page.
 fetch(window.location.origin + '/api/fetch_bot', {
     // Using the POST method to send the request.
@@ -84,7 +90,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
                         // Adding classes to the created div element.
                         className: 'message d-inline-block py-2 px-4 border border-secondary border-opacity-25 rounded-1 me-auto',
                         // Defining the inner HTML content of the div.
-                        innerHTML: content
+                        innerHTML: formatString(content)
                     })
                 );
             }
@@ -127,7 +133,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
                     // Adding classes to the created div element.
                     className: 'message d-inline-block py-2 px-4 border border-info border-opacity-25 rounded-1 ms-auto',
                     // Defining the inner HTML content of the div.
-                    innerHTML: input.value
+                    innerHTML: formatString(input.value)
                 })
             );
 

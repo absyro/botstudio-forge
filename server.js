@@ -23,7 +23,21 @@ const wsc = {};
 app.use(cors());
 
 // Using the helmet middleware to secure the requests.
-app.use(helmet());
+app.use(
+    // Using the helmet middleware with custom configuration.
+    helmet({
+        // Configuring Content Security Policy directives.
+        contentSecurityPolicy: {
+            // Defining security directives.
+            directives: {
+                // Specifying the source from which to load resources by default (self).
+                defaultSrc: ["'self'"],
+                // Specifying the sources from which to allow WebSocket connections, including localhost on port 5030.
+                connectSrc: ["'self'", 'ws://localhost:5030']
+            }
+        }
+    })
+);
 
 // Using the response time middleware to get response times using request headers.
 app.use(responseTime());
