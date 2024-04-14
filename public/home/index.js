@@ -35,4 +35,4 @@ fetch(window.location.origin + '/api/fetch_bots', {
 });
 
 // Check if the dark mode is enabled, then toggle the dark-mode checkbox.
-if (window.localStorage.getItem('dark-mode')) document.getElementById('dark-mode').checked = true;
+if (window.localStorage.getItem('theme-mode') === 'dark') document.getElementById('dark-mode').checked = true;
