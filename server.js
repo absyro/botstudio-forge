@@ -129,7 +129,7 @@ app.use('/api/set_parameters', (req, res) => {
     if (name && !(typeof name === 'string' && name.length < 25 && name.length > 2)) return res.status(400).send('The provided name must be a string with a minimum of 2 characters and a maximum of 25 characters.');
 
     // Checking if a description is provided and the provided description is a string with a minimum of 25 characters and a maximum of 250 characters.
-    if (description && !(typeof name === 'string' && description.length < 250 && description.length > 25)) return res.status(400).send('The provided description must be a string with a minimum of 25 characters and a maximum of 250 characters.');
+    if (description && !(typeof description === 'string' && description.length < 250 && description.length > 25)) return res.status(400).send('The provided description must be a string with a minimum of 25 characters and a maximum of 250 characters.');
 
     // Setting the bot parameters based on the received parameters.
     Object.assign(database.data[hash], { webhook, name, description });
