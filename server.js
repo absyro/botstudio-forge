@@ -34,14 +34,14 @@ app.use(compression());
 // Using Express JSON to handle incmoing request bodies with a limitation of 1 MB.
 app.use(express.json({ limit: '1mb' }));
 
-// Using the Express rate limit middleware to limit the requests from a client.
+// Using the Express rate limit middleware to limit the requests.
 app.use(
     // The rate limit module is used here as a middleware.
     rateLimit({
         // Setting a limitation for 1 minute here.
         windowMs: 60000,
-        // Setting a limitation of 100 requests per minute.
-        max: 100,
+        // Setting a limitation of 100000 requests per minute.
+        max: 100000,
         // The handler that will be triggered whenever a limitation exceeds.
         handler: (req, res) => res.status(429).send('Too many requests!')
     })
