@@ -61,6 +61,9 @@ fetch(window.location.origin + '/api/fetch_bot', {
         // Getting the message form element.
         const messageForm = document.getElementById('message-form');
 
+        // Getting the text input in the form.
+        const input = messageForm.querySelector('input');
+
         // The element of conversation is used to store the conversation data.
         const conversation = document.getElementById('conversation');
 
@@ -88,9 +91,6 @@ fetch(window.location.origin + '/api/fetch_bot', {
         messageForm.onsubmit = (event) => {
             // Preventing the default event handler for forms.
             event.preventDefault();
-
-            // Getting the text input in the form.
-            const input = messageForm.querySelector('input');
 
             // If there were no texts in the input, highlight the input field.
             if (!input.value.length) {
