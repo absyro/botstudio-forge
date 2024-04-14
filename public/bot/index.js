@@ -70,7 +70,18 @@ fetch(window.location.origin + '/api/fetch_bot', {
             const { type, content } = JSON.parse(data);
 
             // Check if the data type is text, then add the message for the user.
-            if (type === 'text') conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-secondary border-opacity-25 rounded-1 me-auto">${content}</div>`;
+            if (type === 'text') {
+                // Add the message to the conversation element.
+                conversation.appendChild(
+                    // Creating a new div element.
+                    Object.assign(document.createElement('div'), {
+                        // Adding classes to the created div element.
+                        className: 'message d-inline-block py-2 px-4 border border-secondary border-opacity-25 rounded-1 me-auto',
+                        // Defining the inner HTML content of the div.
+                        innerHTML: content
+                    })
+                );
+            }
         });
 
         // Setting a new submit action for the message form.
@@ -107,7 +118,15 @@ fetch(window.location.origin + '/api/fetch_bot', {
             );
 
             // Add the message to the conversation element.
-            conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-info border-opacity-25 rounded-1 ms-auto">${input.value}</div>`;
+            conversation.appendChild(
+                // Creating a new div element.
+                Object.assign(document.createElement('div'), {
+                    // Adding classes to the created div element.
+                    className: 'message d-inline-block py-2 px-4 border border-info border-opacity-25 rounded-1 ms-auto',
+                    // Defining the inner HTML content of the div.
+                    innerHTML: input.value
+                })
+            );
 
             // Scrolling to the end of the conversation element.
             conversation.scrollTop = conversation.scrollHeight;
