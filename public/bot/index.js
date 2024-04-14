@@ -67,6 +67,9 @@ fetch(window.location.origin + '/api/fetch_bot', {
         // The element of conversation is used to store the conversation data.
         const conversation = document.getElementById('conversation');
 
+        // When the form is loaded, focus on the input element.
+        input.focus();
+
         // Listening to all incoming messages from the websocket client.
         socket.addEventListener('message', ({ data }) => {
             // Extracting the data parameters.
