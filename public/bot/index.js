@@ -1,10 +1,10 @@
 import '../javascript/main.js';
 
 // This function is used to format all links inside the string.
-const formatStringLinks = (string) => string.replace(/\b(?:https?:\/\/)?((?:[a-zA-Z-]+\.)+[a-zA-Z]{2,})\b/g, '<a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://$1" target="_blank" rel="nofollow">$1</a>');
+const formatStringLinks = (string) => string.replace(/\b(?:https?:\/\/)?((?:[a-zA-Z-]+\.)+[a-zA-Z]{2,})\b/g, '<a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://$1" target="_blank" rel="nofollow">$1</a>');
 
 // This function is used to format all commands inside the string.
-const formatCommands = (string) => string.replace(/(^|\s)\/(\w+)(?=\s|$)/g, '$1<span class="command text-light">/$2</span>');
+const formatCommands = (string) => string.replace(/(^|\s)\/(\w+)(?=\s|$)/g, '$1<span class="command">/$2</span>');
 
 // This function is used to format the given string.
 const formatString = (string) => formatCommands(formatStringLinks(string));

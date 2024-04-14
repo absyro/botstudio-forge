@@ -21,7 +21,7 @@ body {
     display: none;
 }
 .pace .pace-progress {
-    background: crimson;
+    background: var(--bs-emphasis-color);
     position: fixed;
     z-index: 2000;
     right: 100%;
