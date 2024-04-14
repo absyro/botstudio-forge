@@ -114,52 +114,28 @@ app.use('/api', (req, res, next) => {
     next();
 });
 
-// Handling incoming requests to the set_webhook endpoint.
-app.use('/api/set_webhook', (req, res) => {
-    // Extracting the webhook and hash parameters from the request body.
-    const { webhook, hash } = req.body;
+// Checking if the request was sent to set the parameters of a bot.
+app.use('/api/set_parameters', (req, res) => {
+    // Extracting the parameters from the request body.
+    const { hash, webhook, name, description } = req.body;
 
-    // Checking if the provided webhook address is a valid domain.
-    if (!/^(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(webhook)) return res.status(400).send('The webhook address is not a valid URL.');
+    // Check if a webhook address is provided and if it has a correct URL; if not, return and do nothing.
+    if (webhook && !/^(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(webhook)) return res.status(400).send('The webhook address is not a valid URL.');
 
-    // Setting the provided webhook to the hash data.
-    database.data[hash].webhook = webhook;
+    // Checking if a name is provided and the provided name is a string with a minimum of 2 characters and a maximum of 25 characters.
+    if (name && !(typeof name === 'string' && name.length < 25 && name.length > 2)) return res.status(400).send('The provided name must be a string with a minimum of 2 characters and a maximum of 25 characters.');
 
-    // Sending a successful message.
-    res.status(200).send('The webhook address has been set successfully.');
+    // Checking if a description is provided and the provided description is a string with a minimum of 25 characters and a maximum of 250 characters.
+    if (description && !(typeof name === 'string' && description.length < 250 && description.length > 25)) return res.status(400).send('The provided description must be a string with a minimum of 25 characters and a maximum of 250 characters.');
 
-    // Saving the data to the database.
-    database.save();
-});
-
-// Handling incoming requests to the set_name endpoint.
-app.use('/api/set_name', (req, res) => {
-    // Extracting the name and hash parameters from the request body.
-    const { name, hash } = req.body;
-
-    // Setting the provided name to the hash data.
-    database.data[hash].name = name;
-
-    // Sending a successful message.
-    res.status(200).send('The new name has been set successfully.');
+    // Setting the bot parameters based on the received parameters.
+    Object.assign(database.data[hash], { webhook, name, description });
 
     // Saving the data to the database.
     database.save();
-});
 
-// Handling incoming requests to the set_description endpoint.
-app.use('/api/set_description', (req, res) => {
-    // Extracting the description and hash parameters from the request body.
-    const { description, hash } = req.body;
-
-    // Setting the provided description to the hash data.
-    database.data[hash].description = description;
-
-    // Sending a successful message.
-    res.status(200).send('The new description has been set successfully.');
-
-    // Saving the data to the database.
-    database.save();
+    // Sending a successful message as the response to the received request.
+    res.status(200).send('The bot parameters have been changed successfully.');
 });
 
 // Handling incoming requests to get the bot's update list.
