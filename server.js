@@ -7,8 +7,6 @@ import express from 'express';
 import Veloce from 'velocedb';
 import path from 'node:path';
 import chalk from 'chalk';
-import cors from 'cors';
-import xss from 'xss';
 
 // Creating a new Express app to handle incoming requests to the server.
 const app = express();
@@ -18,9 +16,6 @@ const database = new Veloce('database.json');
 
 // Creating a new array of all websocket clients connected.
 const wsc = {};
-
-// Using the Cors middleware.
-app.use(cors());
 
 // Using the response time middleware to get response times using request headers.
 app.use(responseTime());
@@ -51,12 +46,6 @@ app.use(
 app.use((req, res, next) => {
     // If a request body doesn't exist, set it to '{}'.
     req.body ||= {};
-
-    // Iterate through the request's body, query parameters, and parameters.
-    ['body', 'query', 'params'].forEach((param) => {
-        // Sanitize the string values using the xss package.
-        if (req[param]) for (const key in req[param]) if (typeof req[param][key] === 'string') req[param][key] = xss(req[param][key]);
-    });
 
     // Continue to the next middleware.
     next();
