@@ -70,7 +70,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
             const { type, content } = JSON.parse(data);
 
             // Check if the data type is text, then add the message for the user.
-            if (type === 'text') conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-danger border-opacity-50 rounded-1 me-auto">${content}</div>`;
+            if (type === 'text') conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-secondary border-opacity-25 rounded-1 me-auto">${content}</div>`;
         });
 
         // Setting a new submit action for the message form.
