@@ -92,8 +92,11 @@ app.use('/api', (req, res, next) => {
     // Extracting the hash parameter from the request body.
     const { hash } = req.body;
 
-    // Check if the provided hash contains a minimum of 128 and a maximum of 1024 characters.
-    if (hash.length < 128 || hash.length > 1024) return res.status(400).send('The hash length must be between 128 and 1024 characters.');
+    // Check if the provided hash contains a minimum of 64 and a maximum of 512 characters.
+    if (hash.length < 64 || hash.length > 512) return res.status(400).send('The hash length must be between 64 and 512 characters.');
+
+    // Check if the provided hash only consists of A-Z, a-z, and 0-9 characters.
+    if (!/^[a-zA-Z0-9]+$/.test(hash)) return res.status(400).send('The hash should only consist of A-Z, a-z, and 0-9 characters.');
 
     // If the provided hash doesn't exist in the database, create it.
     if (!database.data.hasOwnProperty(hash)) {
