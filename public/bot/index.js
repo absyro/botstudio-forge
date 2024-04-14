@@ -3,8 +3,11 @@ import '../javascript/main.js';
 // This function is used to format all links inside the string.
 const formatStringLinks = (string) => string.replace(/\b(?:https?:\/\/)?((?:[a-zA-Z-]+\.)+[a-zA-Z]{2,})\b/g, '<a href="https://$1" target="_blank" rel="nofollow">$1</a>');
 
+// This function is used to format all commands inside the string.
+const formatCommands = (string) => string.replace(/(?:^|\s)\/(\w+)(?=\s|$)/g, (_, command) => `<span style="color: blue;">/${command}</span>`);
+
 // This function is used to format the given string.
-const formatString = (string) => formatStringLinks(string);
+const formatString = (string) => formatCommands(formatStringLinks(string));
 
 // Sending a request to fetch the information of the requested robot on the page.
 fetch(window.location.origin + '/api/fetch_bot', {
