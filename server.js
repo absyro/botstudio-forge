@@ -6,7 +6,9 @@ import crypto from 'node:crypto';
 import express from 'express';
 import Veloce from 'velocedb';
 import path from 'node:path';
+import helmet from 'helmet';
 import chalk from 'chalk';
+import cors from 'cors';
 
 // Creating a new Express app to handle incoming requests to the server.
 const app = express();
@@ -16,6 +18,12 @@ const database = new Veloce('database.json');
 
 // Creating a new array of all websocket clients connected.
 const wsc = {};
+
+// Using the Cors middleware.
+app.use(cors());
+
+// Using the helmet middleware to secure the requests.
+app.use(helmet());
 
 // Using the response time middleware to get response times using request headers.
 app.use(responseTime());
