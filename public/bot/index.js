@@ -28,7 +28,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
     // Check if the response status code is 200 (ok).
     if (res.status === 200) {
         // Extracting the bot parameters from the response.
-        const { id, name, description } = await res.json();
+        const { id, name, description, commands } = await res.json();
 
         // Setting the document's inner HTML based on the received parameters.
         document.body.innerHTML = /* html */ `
