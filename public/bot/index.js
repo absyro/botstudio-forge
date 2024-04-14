@@ -52,8 +52,8 @@ fetch(window.location.origin + '/api/fetch_bot', {
             </form>
         </div>`;
 
-        // Connecting to the websocket server on port 5030.
-        const socket = new WebSocket('ws://localhost:5030');
+        // Connecting to the websocket server.
+        const socket = new WebSocket('ws://' + (window.location.hostname ? 'localhost:5030' : 'websocket.forge.botstudioo.com'));
 
         // Handling websocket server disconnection events. If the websocket server was disconnected, reload this page.
         socket.addEventListener('close', () => window.location.reload());
