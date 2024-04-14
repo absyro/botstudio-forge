@@ -34,5 +34,20 @@ fetch(window.location.origin + '/api/fetch_bots', {
     document.getElementById('list').innerHTML = content.join('');
 });
 
+// The dark-mode checkbox is used to set the website's theme.
+const darkModeCheckBox = document.getElementById('dark-mode');
+
+// Setting an event handler for the dark-mode checkbox to handle all toggle events.
+darkModeCheckBox.addEventListener('change', ({ target }) => {
+    // Checking which theme should be used now.
+    const theme = target.checked ? 'dark' : 'light';
+
+    // Setting the HTML page's theme mode.
+    document.documentElement.setAttribute('data-bs-theme', theme);
+
+    // Setting the data in local storage.
+    window.localStorage.setItem('theme-mode', theme);
+});
+
 // Check if the dark mode is enabled, then toggle the dark-mode checkbox.
-if (window.localStorage.getItem('theme-mode') === 'dark') document.getElementById('dark-mode').checked = true;
+if (window.localStorage.getItem('theme-mode') === 'dark') darkModeCheckBox.checked = true;
