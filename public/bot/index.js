@@ -1,9 +1,19 @@
 import '../javascript/main.js';
 
 // Sending a request to fetch the information of the requested robot on the page.
-fetch(window.location.origin + '/api/fetch_bot' + window.location.search, {
-    // Using the GET method to send the request.
-    method: 'GET'
+fetch(window.location.origin + '/api/fetch_bot', {
+    // Using the POST method to send the request.
+    method: 'POST',
+    // Setting the request headers.
+    headers: {
+        // Sending the request as a JSON request.
+        'Content-Type': 'application/json'
+    },
+    // Stringifying the request body.
+    body: JSON.stringify({
+        // Sending the ID of the robot in the request body.
+        id: new URLSearchParams(window.location.search).get('id')
+    })
     // Then fetching the received response from the request.
 }).then(async (res) => {
     // Check if the response status code is 200 (ok).
