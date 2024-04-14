@@ -33,3 +33,6 @@ fetch(window.location.origin + '/api/fetch_bots', {
     // Setting the HTML content of the bots list to show bots.
     document.getElementById('list').innerHTML = content.join('');
 });
+
+// Check if the dark mode is enabled, then toggle the dark-mode checkbox.
+if (window.localStorage.getItem('dark-mode')) document.getElementById('dark-mode').checked = true;
