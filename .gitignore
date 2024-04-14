@@ -3,3 +3,6 @@ package-lock.json
 database.json
 *.env*
 *.txt
+*.png
+*.ico
+*.xml
