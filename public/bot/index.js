@@ -107,7 +107,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
             );
 
             // Add the message to the conversation element.
-            conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-info border-opacity-50 rounded-1 ms-auto">${input.value}</div>`;
+            conversation.innerHTML += `<div class="d-inline-block py-2 px-4 border border-info border-opacity-25 rounded-1 ms-auto">${input.value}</div>`;
 
             // Scrolling to the end of the conversation element.
             conversation.scrollTop = conversation.scrollHeight;
