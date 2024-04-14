@@ -1,7 +1,7 @@
 import '../javascript/main.js';
 
 // This function is used to format all links inside the string.
-const formatStringLinks = (string) => string.replace(/\b(?:[a-zA-Z-]+\.)+[a-zA-Z]{2,}\b/g, '<a href="$&" target="_blank" rel="nofollow">$&</a>');
+const formatStringLinks = (string) => string.replace(/\b(?:https?:\/\/)?((?:[a-zA-Z-]+\.)+[a-zA-Z]{2,})\b/g, '<a href="https://$1" target="_blank" rel="nofollow">$1</a>');
 
 // This function is used to format the given string.
 const formatString = (string) => formatStringLinks(string);
