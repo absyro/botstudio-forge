@@ -4,6 +4,10 @@
     --bs-body-font-family: "Rubik";
 }
 
+*::placeholder {
+    color: var(--bs-gray-600) !important;
+}
+
 body {
     border: 1px solid rgba(255, 255, 255, 0.125);
     height: 100vh;
