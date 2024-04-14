@@ -42,7 +42,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
             </p>
             <hr class="border border-secondary border-opacity-25 mb-0">
             <div class="my-4 p-2 border border-secondary border-opacity-25 rounded-1 d-flex align-items-center flex-column gap-2 overflow-auto" id="conversation">
-                <div class="m-auto" id="notice">Send a message to this robot to start chatting.</div>
+                <div class="m-auto text-muted" id="notice">Send a message to this robot to start chatting.</div>
             </div>
             <form class="input-group mb-3" id="message-form">
                 <input name="message" type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Enter the message content...">
