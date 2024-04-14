@@ -54,7 +54,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
                 <div class="m-auto text-muted" id="notice">Send a message to this robot to start chatting.</div>
             </div>
             <form class="input-group mb-3" id="message-form">
-                <input name="message" type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Enter the message content...">
+                <input name="message" type="text" class="form-control rounded-start-1 shadow-none py-2 border-secondary border-opacity-25" placeholder="Enter the message content..." required>
                 <div class="input-group-append">
                     <button class="btn btn-dark border-secondary border-opacity-25 rounded-start-0 rounded-end-1 py-2 text-white" type="submit">Send Message</button>
                 </div>
@@ -103,15 +103,6 @@ fetch(window.location.origin + '/api/fetch_bot', {
         messageForm.onsubmit = (event) => {
             // Preventing the default event handler for forms.
             event.preventDefault();
-
-            // If there were no texts in the input, highlight the input field.
-            if (!input.value.length) {
-                // Change the input's background color.
-                input.style.background = 'rgba(0, 0, 0, 0.125)';
-
-                // Set a timeout of 2 seconds. After the timeout ends, remove the highlight of the input. Also, return and do not continue the process.
-                return setTimeout(() => (input.style.background = ''), 2000);
-            }
 
             // If the notice exists, remove it.
             conversation.querySelector('#notice')?.remove();
