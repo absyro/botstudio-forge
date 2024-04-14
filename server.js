@@ -103,7 +103,7 @@ app.use('/api', (req, res, next) => {
         // Creating the hash in the database.
         database.data[hash] = {
             // Creating a unique ID for the hash in the database.
-            id: crypto.randomBytes(64).toString('hex'),
+            id: crypto.randomBytes(32).toString('hex'),
             // Setting a custom name for the bot.
             name: 'The bot',
             // Setting a custom description for the bot.
