@@ -60,7 +60,7 @@ app.use(
         // Setting a limitation of 100000 requests per minute.
         max: 100000,
         // The handler that will be triggered whenever a limitation exceeds.
-        handler: (req, res) => res.status(429).send('Too many requests!')
+        handler: (req, res) => res.status(429).json({ message: 'Too many requests!' })
     })
 );
 
@@ -76,7 +76,7 @@ app.use((req, res, next) => {
 // Handling incoming requests to get the list of all bots.
 app.use('/api/fetch_bots', (req, res) => {
     // Sending a list of all bots in the database file. Some parameters will be removed.
-    res.status(200).send(Object.values(database.data).map(({ webhook, updates, ...bot }) => bot));
+    res.status(200).json(Object.values(database.data).map(({ webhook, updates, ...bot }) => bot));
 });
 
 // Handling incoming requests to get bot information from the database.
@@ -85,7 +85,7 @@ app.use('/api/fetch_bot', (req, res) => {
     const { webhook, updates, ...bot } = Object.values(database.data).find(({ id }) => id === req.body.id) || {};
 
     // Sending the bot's information as the response.
-    res.status(Object.keys(bot).length ? 200 : 400).send(bot);
+    res.status(Object.keys(bot).length ? 200 : 400).json(bot);
 });
 
 // A custom middleware to handle all incoming requests to the API endpoints.
@@ -94,10 +94,10 @@ app.use('/api', (req, res, next) => {
     const { hash } = req.body;
 
     // Check if the provided hash contains a minimum of 64 and a maximum of 512 characters.
-    if (hash.length < 64 || hash.length > 512) return res.status(400).send('The hash length must be between 64 and 512 characters.');
+    if (hash.length < 64 || hash.length > 512) return res.status(400).json({ message: 'The hash length must be between 64 and 512 characters.' });
 
     // Check if the provided hash only consists of A-Z, a-z, and 0-9 characters.
-    if (!/^[a-zA-Z0-9]+$/.test(hash)) return res.status(400).send('The hash should only consist of A-Z, a-z, and 0-9 characters.');
+    if (!/^[a-zA-Z0-9]+$/.test(hash)) return res.status(400).json({ message: 'The hash should only consist of A-Z, a-z, and 0-9 characters.' });
 
     // If the provided hash doesn't exist in the database, create it.
     if (!database.data.hasOwnProperty(hash)) {
@@ -126,13 +126,13 @@ app.use('/api/set_parameters', (req, res) => {
     const { hash, webhook, name, description } = req.body;
 
     // Check if a webhook address is provided and if it has a correct URL; if not, return and do nothing.
-    if (webhook && !/^(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(webhook)) return res.status(400).send('The webhook address is not a valid URL.');
+    if (webhook && !/^(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(webhook)) return res.status(400).json({ message: 'The webhook address is not a valid URL.' });
 
     // Checking if a name is provided and the provided name is a string with a minimum of 2 characters and a maximum of 25 characters.
-    if (name && !(typeof name === 'string' && name.length < 25 && name.length > 2)) return res.status(400).send('The provided name must be a string with a minimum of 2 characters and a maximum of 25 characters.');
+    if (name && !(typeof name === 'string' && name.length < 25 && name.length > 2)) return res.status(400).json({ message: 'The provided name must be a string with a minimum of 2 characters and a maximum of 25 characters.' });
 
     // Checking if a description is provided and the provided description is a string with a minimum of 25 characters and a maximum of 250 characters.
-    if (description && !(typeof description === 'string' && description.length < 250 && description.length > 25)) return res.status(400).send('The provided description must be a string with a minimum of 25 characters and a maximum of 250 characters.');
+    if (description && !(typeof description === 'string' && description.length < 250 && description.length > 25)) return res.status(400).json({ message: 'The provided description must be a string with a minimum of 25 characters and a maximum of 250 characters.' });
 
     // Setting the bot parameters based on the received parameters.
     Object.assign(database.data[hash], { webhook, name, description });
@@ -141,7 +141,7 @@ app.use('/api/set_parameters', (req, res) => {
     database.save();
 
     // Sending a successful message as the response to the received request.
-    res.status(200).send('The bot parameters have been changed successfully.');
+    res.status(200).json({ message: 'The bot parameters have been changed successfully.' });
 });
 
 // Handling incoming requests to get the bot's update list.
@@ -150,7 +150,7 @@ app.use('/api/get_updates', (req, res) => {
     const { hash } = req.body;
 
     // Sending the response to the request with the bot's update list.
-    res.status(200).send(database.data[hash].updates);
+    res.status(200).json(database.data[hash].updates);
 });
 
 // Handling incoming requests to send a message to a client.
@@ -159,13 +159,13 @@ app.use('/api/send_message', (req, res) => {
     const { client, content } = req.body;
 
     // If the client doesn't exist, then return a status code of 400.
-    if (!wsc.hasOwnProperty(client)) return res.status(400).send('The requested client is invalid.');
+    if (!wsc.hasOwnProperty(client)) return res.status(400).json({ message: 'The requested client is invalid.' });
 
     // Send the message to the client.
     wsc[client].send(JSON.stringify({ type: 'text', content }));
 
     // Sending a message indicating a successful process.
-    res.status(200).send('The message was delivered successfully.');
+    res.status(200).json({ message: 'The message was delivered successfully.' });
 });
 
 // Checking if the user has requested the home page.
