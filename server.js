@@ -194,6 +194,9 @@ app.use((req, res, next) => {
     res.sendFile(path.join(process.cwd(), 'public', page, 'index.html'));
 });
 
+// Redirect all missing requests to the home page.
+app.use((req, res) => res.redirect('/'));
+
 // Setting the trust proxy for the local network address. This one is used for express rate limit middleware.
 app.set('trust proxy', '127.0.0.1');
 
