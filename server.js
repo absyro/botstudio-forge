@@ -75,8 +75,11 @@ app.use((req, res, next) => {
 
 // Handling incoming requests to get the list of all bots.
 app.use('/api/fetch_bots', (req, res) => {
-    // Sending a list of all bots in the database file. Some parameters will be removed.
-    res.status(200).json(Object.values(database.data).map(({ webhook, updates, ...bot }) => bot));
+    // Filtering list of robots. If a robot is private, it won't be listed.
+    const publicBots = Object.values(database.data).filter((bot) => !bot.private);
+
+    // Sending a list of all public bots in the database file. Some parameters will be removed.
+    res.status(200).json(publicBots.map(({ webhook, updates, ...bot }) => bot));
 });
 
 // Handling incoming requests to get bot information from the database.
@@ -112,7 +115,9 @@ app.use('/api', (req, res, next) => {
             // Creating a list of the bot's commands. An empty array that will contain strings.
             commands: [],
             // Creating the bot's update list. It will be an empty array of objects.
-            updates: []
+            updates: [],
+            // Setting the bot's default mode to private.
+            private: true
         };
     }
 
