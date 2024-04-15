@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "format": "prettier **/** -w -c",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "build": "rm -rf build && cp -r public build && buildm -b build"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   },
   "homepage": "https://github.com/absyro/botstudio-forge#readme",
   "dependencies": {
+    "buildm": "^4.5.1",
     "chalk": "^5.3.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
