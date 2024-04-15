@@ -47,7 +47,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
                 ${description}
             </p>
             <hr class="border border-secondary border-opacity-25 mb-0">
-            <div class="my-4 p-2 border border-secondary border-opacity-25 rounded-1 d-flex align-items-center flex-column gap-2 overflow-auto" id="conversation">
+            <div class="my-4 p-2 border border-secondary border-opacity-25 rounded-1 d-flex align-items-center flex-column gap-2 overflow-y-auto overflow-x-hidden" id="conversation">
                 <div class="m-auto text-muted" id="notice">Send a message to this robot to start chatting.</div>
             </div>
             <form class="input-group mb-3" id="message-form">
@@ -88,7 +88,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
                     // Creating a new div element.
                     Object.assign(document.createElement('div'), {
                         // Adding classes to the created div element.
-                        className: 'message d-inline-block py-2 px-4 border border-secondary border-opacity-25 rounded-1 me-auto',
+                        className: 'animate__animated animate__faster animate__fadeInLeft d-inline-block py-2 px-4 border border-secondary border-opacity-25 rounded-1 me-auto',
                         // Defining the inner HTML content of the div.
                         innerHTML: formatString(content)
                     })
@@ -122,7 +122,7 @@ fetch(window.location.origin + '/api/fetch_bot', {
                 // Creating a new div element.
                 Object.assign(document.createElement('div'), {
                     // Adding classes to the created div element.
-                    className: 'message d-inline-block py-2 px-4 border border-info border-opacity-25 rounded-1 ms-auto',
+                    className: 'animate__animated animate__faster animate__fadeInRight d-inline-block py-2 px-4 border border-info border-opacity-25 rounded-1 ms-auto',
                     // Defining the inner HTML content of the div.
                     innerHTML: formatString(input.value)
                 })
