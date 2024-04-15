@@ -1,4 +1,4 @@
-# Bot Studio Forge - Design, Develop, Demolish!
+# Bot Studio Forge - Forge Your Robotic Destiny!
 
 **Modifying, editing, sharing and maintaining code is permitted; however, employing this software for commercial purposes or as a product is strictly prohibited. Additionally, it is important to note that this application is exclusively authorized for use within the Bot Studio community. Usage in any other community or for production purposes is expressly prohibited. Please review the license terms for further clarification.**
 
